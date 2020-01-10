@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.CoreUtility" Version="16.4.280" />
+    <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="16.4.280" />
+    <PackageReference Include="Microsoft.VisualStudio.Text.Logic" Version="16.4.280" />
+    <PackageReference Include="Microsoft.VisualStudio.Text.UI" Version="16.4.280" />
+    <PackageReference Include="Microsoft.VisualStudio.Text.UI.Wpf" Version="16.4.280" />
+    <PackageReference Include="System.Composition.AttributedModel" Version="1.4.0" />
+    <!-- <PackageReference Include="PresentationCore" Version="1.0.4" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="1.0.4" />
+    <PackageReference Include="System.Core" Version="1.0.4"/> -->
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+</Project>
