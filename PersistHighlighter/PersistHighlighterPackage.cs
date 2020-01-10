@@ -34,14 +34,17 @@ namespace PersistHighlighter
     /// To get loaded into VS, the package must be referred by &lt;Asset Type="Microsoft.VisualStudio.VsPackage" ...&gt; in .vsixmanifest file.
     /// </para>
     /// </remarks>
-    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
+    
+    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
+    [ProvideMenuResource("Menus.ctmenu", 1)]//1
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]//2
     [Guid(PersistHighlighterPackage.PackageGuidString)]
     public sealed class PersistHighlighterPackage : AsyncPackage
     {
         /// <summary>
         /// PersistHighlighterPackage GUID string.
         /// </summary>
-        public const string PackageGuidString = "9222c50a-2354-4875-b52c-59350da488fa";
+        public const string PackageGuidString = "EC28BBE7-9733-4AEB-A7B9-38968A1D99A9";
 
 
 
@@ -79,16 +82,18 @@ namespace PersistHighlighter
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
 
-            OleMenuCommandService oleMenuCommandService =
-                await base.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (oleMenuCommandService != null)
+            using (OleMenuCommandService oleMenuCommandService =
+                await base.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService)
             {
-                CommandID command = new CommandID(GuidList.guidStickyHighlightCmdSet, 256);
-                MenuCommand command2 = new MenuCommand(new EventHandler(this.MenuItemCallback), command);
-                oleMenuCommandService.AddCommand(command2);
-                command = new CommandID(GuidList.guidStickyHighlightCmdSet, 257);
-                command2 = new MenuCommand(new EventHandler(this.MenuItemCallback), command);
-                oleMenuCommandService.AddCommand(command2);
+                if (oleMenuCommandService != null)
+                {
+                    CommandID command = new CommandID(GuidList.guidStickyHighlightCmdSet, 256);
+                    MenuCommand command2 = new MenuCommand(new EventHandler(this.MenuItemCallback), command);
+                    oleMenuCommandService.AddCommand(command2);
+                    command = new CommandID(GuidList.guidStickyHighlightCmdSet, 257);
+                    command2 = new MenuCommand(new EventHandler(this.MenuItemCallback), command);
+                    oleMenuCommandService.AddCommand(command2);
+                }
             }
 
         }

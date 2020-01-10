@@ -45,6 +45,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Classifier\BaseStickyHighlightWordFormatDefinition.cs" />
+    <Compile Include="Classifier\HighlightedWordCollection.cs" />
+    <Compile Include="Classifier\HighlightWordTaggerProvider.cs" />
+    <Compile Include="Classifier\StickyHighlightWordFormatDefinition1.cs" />
+    <Compile Include="Classifier\StickyHighlightWordFormatDefinition2.cs" />
+    <Compile Include="Classifier\StickyHighlightWordFormatDefinition3.cs" />
+    <Compile Include="Classifier\StickyHighlightWordTag1.cs" />
+    <Compile Include="Classifier\StickyHighlightWordTag2.cs" />
+    <Compile Include="Classifier\StickyHighlightWordTag3.cs" />
+    <Compile Include="Classifier\StickyHighlightWordTagger.cs" />
     <Compile Include="GuidList.cs" />
     <Compile Include="PkgCmdIDList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,18 +66,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Design" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="16.0.202" ExcludeAssets="runtime" />
-    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.4.1057" />
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.5.1032" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PersistHighlighter.Classifier\PersistHighlighter.Classifier.csproj">
-      <Project>{23305e2b-8e77-450d-b297-4af5cf35b475}</Project>
-      <Name>PersistHighlighter.Classifier</Name>
-    </ProjectReference>
+    <Content Include="PersistHighlighter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
