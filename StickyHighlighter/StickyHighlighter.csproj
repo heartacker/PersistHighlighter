@@ -29,6 +29,6 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StickyHighlightClassifier\StickyHighlighterClassifier.csproj" />
+    <ProjectReference Include="..\StickyHighlighterClassifier\StickyHighlighterClassifier.csproj" />
   </ItemGroup>
 </Project>
