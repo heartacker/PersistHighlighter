@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Composition;
 using System.Drawing;
-using System.Window.Media;
+using System.Windows.Media;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Utilities;
 
