@@ -12,6 +12,9 @@ namespace PersistHighlighter.Classifier
             this.HighlightedWords = new List<string>();
         }
 
+        // Token: 0x0400000A RID: 10
+        private static HighlightedWordCollection instance;
+
         // Token: 0x17000007 RID: 7
         // (get) Token: 0x06000021 RID: 33 RVA: 0x000028A3 File Offset: 0x00000AA3
         public static HighlightedWordCollection Instance
@@ -55,16 +58,17 @@ namespace PersistHighlighter.Classifier
         public event HighlightedWordCollection.ChangedEventHandler Changed;
 
         // Token: 0x06000026 RID: 38 RVA: 0x000029C9 File Offset: 0x00000BC9
+        /// <summary>
+        /// todo 提供change 函数
+        /// </summary>
+        /// <param name="e"></param>
         protected virtual void OnChanged(EventArgs e)
         {
             if (this.Changed != null)
             {
                 this.Changed(this, e);
             }
-        }
-
-        // Token: 0x0400000A RID: 10
-        private static HighlightedWordCollection instance;
+        } 
 
         // Token: 0x0400000B RID: 11
         public List<string> HighlightedWords;

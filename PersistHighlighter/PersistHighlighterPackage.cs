@@ -8,6 +8,7 @@ using System.Threading;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Operations;
@@ -52,9 +53,15 @@ namespace PersistHighlighter
             {
                 this.ToString()
             }));
+            //todo Provider;
+            hlwPrvder = new HighlightWordTaggerProvider();
         }
 
 
+        #endregion
+
+        #region field
+        HighlightWordTaggerProvider hlwPrvder;
         #endregion
 
         #region Package Members
@@ -124,7 +131,8 @@ namespace PersistHighlighter
             int num = 1;
             vsTextManager.GetActiveView(num, null, out vsTextView);
             IComponentModel componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
-            IVsEditorAdaptersFactoryService vsEditorAdaptersFactoryService = (IVsEditorAdaptersFactoryService)base.GetService(typeof(IVsEditorAdaptersFactoryService));
+            IVsEditorAdaptersFactoryService vsEditorAdaptersFactoryService =
+                (IVsEditorAdaptersFactoryService)base.GetService(typeof(IVsEditorAdaptersFactoryService));
             IVsEditorAdaptersFactoryService service = componentModel.GetService<IVsEditorAdaptersFactoryService>();
             ITextView wpfTextView = service.GetWpfTextView(vsTextView);
             ITextBuffer textBuffer = wpfTextView.TextBuffer;

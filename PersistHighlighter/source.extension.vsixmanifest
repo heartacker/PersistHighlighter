@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" ?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="PersistHighlighter.9a250ab4-ae03-474d-b688-ccf5ea7da645" Version="1.0" Language="en-US" Publisher="Heartacker" />
+        <Identity Id="PersistHighlighter.9a250ab4-ae03-474d-b688-ccf5ea7da645" Version="1.1.000" Language="en-US" Publisher="Heartacker" />
         <DisplayName>PersistHighlighter</DisplayName>
         <Description xml:space="preserve">PersistHighlighter</Description>
         <MoreInfo>https://github.com/heartacker/PersistHighlighter</MoreInfo>
