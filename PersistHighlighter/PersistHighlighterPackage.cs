@@ -13,6 +13,7 @@ using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.TextManager.Interop;
 using PersistHighlighter.Classifier;
+using PersistHighlighter.Cmd;
 using Task = System.Threading.Tasks.Task;
 
 namespace PersistHighlighter
@@ -34,19 +35,15 @@ namespace PersistHighlighter
     /// To get loaded into VS, the package must be referred by &lt;Asset Type="Microsoft.VisualStudio.VsPackage" ...&gt; in .vsixmanifest file.
     /// </para>
     /// </remarks>
-    
-    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
-    [ProvideMenuResource("Menus.ctmenu", 1)]//1
-    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]//2
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(PersistHighlighterPackage.PackageGuidString)]
+    [ProvideMenuResource("Menus.ctmenu", 1)]
     public sealed class PersistHighlighterPackage : AsyncPackage
     {
         /// <summary>
         /// PersistHighlighterPackage GUID string.
         /// </summary>
-        public const string PackageGuidString = "EC28BBE7-9733-4AEB-A7B9-38968A1D99A9";
-
-
+        public const string PackageGuidString = "8a87e89b-1bf0-449f-a2cf-777ba3bdf4f2";
 
         #region ctor
         public PersistHighlighterPackage()
@@ -82,20 +79,29 @@ namespace PersistHighlighter
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
 
+#if false
             using (OleMenuCommandService oleMenuCommandService =
-                await base.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService)
+        await base.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService)
             {
                 if (oleMenuCommandService != null)
                 {
-                    CommandID command = new CommandID(GuidList.guidStickyHighlightCmdSet, 256);
-                    MenuCommand command2 = new MenuCommand(new EventHandler(this.MenuItemCallback), command);
-                    oleMenuCommandService.AddCommand(command2);
-                    command = new CommandID(GuidList.guidStickyHighlightCmdSet, 257);
-                    command2 = new MenuCommand(new EventHandler(this.MenuItemCallback), command);
-                    oleMenuCommandService.AddCommand(command2);
-                }
-            }
+                    CommandID cmdhl = new CommandID(GuidList.guidStickyHighlightCmdSet, (int)PkgCmdIDList.cmdidHighlightWord);
+                    MenuCommand menucmdhl = new MenuCommand(new EventHandler(this.MenuItemCallback), cmdhl);
 
+
+
+
+                    CommandID cmdclr = new CommandID(GuidList.guidStickyHighlightCmdSet, (int)PkgCmdIDList.cmdidClearHighlights);
+                    MenuCommand menucmdclr = new MenuCommand(new EventHandler(this.MenuItemCallback), cmdclr);
+
+
+                    oleMenuCommandService.AddCommand(menucmdhl);
+                    oleMenuCommandService.AddCommand(menucmdclr);
+                }
+            } 
+#endif
+            await PersistHighlighter.Cmd.ToggleHighlight.InitializeAsync(this, this.MenuItemCallback);
+            await PersistHighlighter.Cmd.ClearHighlight.InitializeAsync(this, this.MenuItemCallback);
         }
 
         #endregion
@@ -159,7 +165,7 @@ namespace PersistHighlighter
             MenuCommand menuCommand = (MenuCommand)sender;
             switch (menuCommand.CommandID.ID)
             {
-                case 256:
+                case ToggleHighlight.CommandId:
                     {
                         string currentlyHighlightedWord = this.GetCurrentlyHighlightedWord();
                         if (currentlyHighlightedWord != null)
@@ -169,7 +175,7 @@ namespace PersistHighlighter
                         }
                         break;
                     }
-                case 257:
+                case ClearHighlight.CommandId:
                     HighlightedWordCollection.Instance.ClearHighlightedWords();
                     break;
                 default:
